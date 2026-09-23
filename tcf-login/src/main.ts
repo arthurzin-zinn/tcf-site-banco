@@ -1,15 +1,10 @@
-import './style.css'
-import heroImg from './assets/hero.png'
-import typescriptLogo from './assets/typescript.svg'
-import viteLogo from './assets/vite.svg'
-import { setupCounter } from './counter.ts'
-import tituloLogin from './components/tituloLogin.tsx'
-import containerLogin from './components/containerLogin.tsx'
+import './style.css';
+import ReactDOM from "react-dom/client";
+import React from "react";
+import App from "./App.tsx";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<div>
- <tituloLogin/>
- <containerLogin/>
-<div/>
-`
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+    <App />
+    </React.StrictMode>
+)

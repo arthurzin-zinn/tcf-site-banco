@@ -1,0 +1,50 @@
+.teste {
+    display: flex;
+    justify-content: center;
+    margin-top: 300px;
+}
+
+.banner {
+    background-color: rgb(85, 209, 54);
+    width: 300px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+h1 {
+    font-family: sans-serif;
+    margin-left: 10px;
+    color: white;
+    margin-top: 0px;
+    
+}
+
+label {
+    font-family: sans-serif;
+    margin-left: 10px;
+}
+
+input {
+    border-radius: 8px;
+    border-color: black;
+    border-width: 1px;
+}
+
+.container-Login {
+    background-color: rgb(243, 243, 243);
+    border-radius: 10px;
+}
+
+.adicao {
+    margin-left: 8px;
+}
+
+.botaoEntrada {
+    margin-left: 180px;
+    width: 90px;
+    border: 0px;
+    background-color: rgb(85, 209, 54);
+    border-radius: 10px;
+    height: 25px;
+    color: white;
+}

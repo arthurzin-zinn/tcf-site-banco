@@ -1,0 +1,62 @@
+.barra {
+    background-color: rgb(112, 247, 79);
+    height: 100px;
+    display: flex;
+}
+.containerr {
+    margin-left: 850px;
+    margin-top: 80px;
+}
+
+.inputEBotao {
+    display: flex;
+    margin-left: 30px;
+    padding-top: 30px;
+}
+
+.calculo {
+    background-color: rgb(236, 236, 236);
+    width: 400px;
+    height: 200px;
+    border-radius: 30px;
+
+}
+
+.personalizar {
+    width: 200px;
+    border: 0px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.botao {
+
+    margin-left: 10px;
+    background-color: rgb(112, 247, 79);
+    border: 0px;
+    width: 100px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.resultado {
+    color: black;
+    font-family: sans-serif;
+    margin-left: 30px;
+}
+
+.butao {
+    margin-top: 10px;
+    background-color: rgb(112, 247, 79);
+    border: 0px;
+    width: 100px;
+    height: 25px;
+    border-radius: 10px;
+}
+
+.texto {
+    font-size: 30px;
+    padding-left: 10px;
+    font-family: sans-serif;
+}
+

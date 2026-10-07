@@ -19,6 +19,7 @@ export async function gerarToken(usuario, privateKey, data) {
 }
 
 const NOME_COOKIE = "auth_session";
+const COOKIE_USER = "auth_user"
 
 export function salvarSessaoNoCookie(usuario, token, data) {
   const sessao = JSON.stringify({ usuario, token, data });
@@ -50,12 +51,33 @@ export function apagarSessaoDoCookie() {
   document.cookie = `${NOME_COOKIE}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }
 
-export function getSessaoValidaDeHoje() {
-  const sessao = lerSessaoDoCookie();
-  if (!sessao) return null;
-  if (sessao.data !== getDataHoje()) {
-    apagarSessaoDoCookie();
+export async function getSessaoValidaDeHoje() {
+  const usuario = lerSessaoDoCookie(COOKIE_USER);
+  const tokenSalvo = lerSessaoDoCookie(NOME_COOKIE);
+  if (usuario || !tokenSalvo) return null;
+
+  try {
+    const resposta = await fetch("/user.json")
+    const usuarios = await resposta.json();
+
+    const usuarioEncontrado = usuarios.find((u) => u.usuario === usuario);
+    
+    if (!usuarioEncontrado) {
+      apagarSessaoDoCookie();
+      return null;
+    }
+
+    const hoje = getDataHoje();
+    const tokenCalculado = await gerarToken(usuarioEncontrado.usuario, usuarioEncontrado.privateKey, hoje);
+
+    
+    if (tokenSalvo !== tokenCalculado) {
+      apagarSessaoDoCookie();
+      return null;
+    }
+
+    return{ usuario: usuarioEncontrado.usuario, token: tokenSalvo, data:hoje}
+  } catch {
     return null;
   }
-  return sessao;
 }

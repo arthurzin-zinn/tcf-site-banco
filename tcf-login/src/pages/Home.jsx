@@ -36,8 +36,8 @@ export default function Home({ sessao, onLogout }) {
 
   };
 
-  const [valors1, setValors1] = useState()
-  const [resultado, setResultado] = useState(0)
+  const [valors1, setValors1] = useState('')
+  const [resultado, setResultado] = useState()
 
   return (
     <div className="container">    

@@ -21,7 +21,6 @@ export default function App() {
   if (sessao === undefined) {
     return <p>Carregando...</p>;
   }
-console.log(sessao)
   if (!sessao) {
     return <Login onLoginSucesso={(novaSessao) => setSessao(novaSessao)} />;
   }

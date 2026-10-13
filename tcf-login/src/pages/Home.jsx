@@ -41,17 +41,21 @@ export default function Home({ sessao, onLogout }) {
 
   return (
     <div className="container">    
-      <div>
+      <div className="principal">
+        <div className="aba">
+
+        </div>
         <div className="barra">
-          <p className="texto">olá seja bem-vindo</p>
-          
-        </div>
-        <div>
-          <button className="butao" onClick={handleLogout}>Sair</button>
-        </div>
-        <div className="containerr">
-          <div className="calculo">
-            <div className="inputEBotao">
+          <div className="bemVindo">
+            <p className="texto">olá seja bem-vindo</p>
+          </div>
+          <div className="conteudo">
+            <div>
+              <button className="butao" onClick={handleLogout}>Sair</button>
+            </div>
+            <div className="containerr">
+              <div className="calculo">
+                <div className="inputEBotao">
               <Inputss  value={valors1} onchange={setValors1} />
               <button className="botao" onClick={calcularr}>calcular</button>
             </div> 
@@ -59,6 +63,13 @@ export default function Home({ sessao, onLogout }) {
             
           </div>
         </div>
+          </div>
+          
+          
+        
+          
+        </div>
+        
 
         
       </div>

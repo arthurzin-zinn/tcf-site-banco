@@ -21,30 +21,21 @@ export async function gerarToken(usuario, privateKey, data) {
 const NOME_COOKIE = "auth_session";
 const COOKIE_USER = "auth_user"
 
-export function salvarSessaoNoCookie(usuario, token, data) {
-  const sessao = JSON.stringify({ usuario, token, data });
+export function salvarSessaoNoCookie(usuario, token) {
+  const meiaNoite = new Date()
+  meiaNoite.setHours(23,59,59,999);
 
-  const meiaNoite = new Date();
-  meiaNoite.setHours(23, 59, 59, 999);
-
-  document.cookie =
-    `${NOME_COOKIE}=${encodeURIComponent(sessao)}; ` +
-    `expires=${meiaNoite.toUTCString()}; ` +
-    `path=/; SameSite=Lax`;
+  const expires = `expires=${meiaNoite.toUTCString()}; path=/; SameSite=Lax`
+  
+  document.cookie = `${NOME_COOKIE}=${encodeURIComponent(token)}; ${expires}`
+  document.cookie = `${COOKIE_USER}=${encodeURIComponent(usuario)}; ${expires}`
 }
 
-export function lerSessaoDoCookie() {
+export function lerSessaoDoCookie(nome) {
   const cookies = document.cookie.split("; ");
-  const encontrado = cookies.find((linha) => linha.startsWith(`${NOME_COOKIE}=`));
-
+  const encontrado = cookies.find((linha) => linha.startsWith(`${nome}=`));
   if (!encontrado) return null;
-
-  const valor = encontrado.split("=")[1];
-  try {
-    return JSON.parse(decodeURIComponent(valor));
-  } catch {
-    return null;
-  }
+  return decodeURIComponent(encontrado.split("=")[1])
 }
 
 export function apagarSessaoDoCookie() {
@@ -54,14 +45,12 @@ export function apagarSessaoDoCookie() {
 export async function getSessaoValidaDeHoje() {
   const usuario = lerSessaoDoCookie(COOKIE_USER);
   const tokenSalvo = lerSessaoDoCookie(NOME_COOKIE);
-  if (usuario || !tokenSalvo) return null;
-
+  if (!usuario || !tokenSalvo) return null;
+  
   try {
-    const resposta = await fetch("/user.json")
+    const resposta = await fetch("/users.json")
     const usuarios = await resposta.json();
-
     const usuarioEncontrado = usuarios.find((u) => u.usuario === usuario);
-    
     if (!usuarioEncontrado) {
       apagarSessaoDoCookie();
       return null;
@@ -69,15 +58,15 @@ export async function getSessaoValidaDeHoje() {
 
     const hoje = getDataHoje();
     const tokenCalculado = await gerarToken(usuarioEncontrado.usuario, usuarioEncontrado.privateKey, hoje);
-
+    
     
     if (tokenSalvo !== tokenCalculado) {
       apagarSessaoDoCookie();
       return null;
     }
-
+    
     return{ usuario: usuarioEncontrado.usuario, token: tokenSalvo, data:hoje}
-  } catch {
+  } catch (error) {
     return null;
   }
 }
